@@ -7,10 +7,7 @@ interface LoginState {
     inputValues: User 
 }
 
-interface FormLogin {
-    onLoginUser: () => {}
-    
-}
+
 
 export default function Login()
 

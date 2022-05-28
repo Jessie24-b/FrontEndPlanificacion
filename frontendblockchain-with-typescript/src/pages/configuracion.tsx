@@ -1,45 +1,69 @@
 import axios from 'axios';
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Footer from '../components/footer';
 import Navbar from '../components/Navbar';
 import  '../styles/config.css';
-import IConfiguracion from "../types/user.type"
+import {Configuracion} from "../types"
+import ListConfiguration from "../components/listConfigComponent"
 
-export default class Configuracion extends Component {
+interface ConfiguracionState {
+    inputValues: Configuracion 
+}
 
-    constructor(props: any) {
-        super(props);
-        this.state = {
-            key: "",
-            value: ""
-        };
-      }
+interface ListConfig {
+    id: string
+    key: string
+    value: string 
+}
 
+export default function ConfiguracionComponent() {
+
+
+      const [inputValues, setInputValues] = useState<ConfiguracionState["inputValues"]>({
+        key: '',
+        value: ''
+    })
+
+    
+    
+    const [configs, setConfigs] = useState<Array<ListConfig>>([])
+
+    useEffect(() =>{
+        const response=  axios.get('https://localhost:44317/api/Config/')
+        .then(response => {
+            console.log(response.data);
+            setConfigs(response.data);
+        })  
+       
+    }, [])
       
 
-        handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
-        console.log(this.state);
-        const response=  axios.post('https://localhost:44317/api/Config/',this.state)
+      const  handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
+        console.log(inputValues);
+        const response=  axios.post('https://localhost:44317/api/Config/',inputValues)
         .then(response => response.data)  
         return response
                  
         }
 
-         handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
             
-            this.setState({
-                ...this.state,
+                setInputValues({
+                ...inputValues,
                 [e.target.name]: e.target.value
             })   
                   
         }
 
-render(){
+        
+
 
     return(
         <><Navbar />'
         <div className='container'>
+           
+           
             <div className='row'>
               <div className='row'>
                    <label htmlFor="">Registro de configuraciones</label>
@@ -48,24 +72,25 @@ render(){
                     <div className='col-5'>
                         <input 
                         name='key'
-                        onChange={this.handleChange}
+                        onChange={handleChange}
                         className='input-Config' 
                         placeholder='Ingrese el nombre de la configuración' type="text" />
                     </div>
                     <div className='col-5'>
                         <input 
                         name='value'
-                        onChange={this.handleChange}
+                        onChange={handleChange}
                         className='input-Config'
                          placeholder='Ingrese el valor de la configuración'
                           type="text" />
                     </div>
                     <div className='col-2'>
-                        <button onClick={this.handleSubmit} className='btn-Config'> Registrar</button>
+                        <button onClick={handleSubmit} className='btn-Config'> Registrar</button>
                     </div>
               </div>
             </div>
             <div className='row'>
+                <ListConfiguration configs = {configs}/>
               
             </div>
 
@@ -78,6 +103,6 @@ render(){
 }
 
    
-}
+
   
                         
