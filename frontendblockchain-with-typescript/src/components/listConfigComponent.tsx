@@ -2,7 +2,7 @@ import axios from 'axios';
 import { ConfiguracionModal} from "../types"
 import { Button, Modal } from "react-bootstrap";
 import Form from 'react-bootstrap/Form'
-import React, { HtmlHTMLAttributes, useState } from 'react';
+import React, {  useState } from 'react';
 interface Props {
     configs: Array<{
         id: string
@@ -48,7 +48,7 @@ export default function ListConfiguration({ configs }: Props) {
     const handleSumitModal = () => {
 
 
-        const response=  axios.put('https://localhost:44317/api/Config/',inputValues)
+        const response=  axios.put('https:///api/Config/',inputValues)
         .then(response => response.data)  
         return response 
     }
