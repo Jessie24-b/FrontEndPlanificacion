@@ -48,7 +48,7 @@ export default function ListConfiguration({ configs }: Props) {
     const handleSumitModal = () => {
 
 
-        const response=  axios.put('https:///api/Config/',inputValues)
+        const response=  axios.put('https://localhost:44317/api/Config/',inputValues)
         .then(response => response.data)  
         return response 
     }
