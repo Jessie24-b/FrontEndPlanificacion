@@ -4,7 +4,9 @@ import Footer from '../components/footer';
 import Navbar from '../components/Navbar';
 import  '../styles/config.css';
 import {Configuracion} from "../types"
-import ListConfiguration from "../components/listConfigComponent"
+import ListConfiguration from "../components/listConfigComponent";
+import { alertMessage, alertQuestion } from "../alerts/alerts";
+import {SUCCESS_MESSAGE_REGISTER,ICON_SUCCESS} from "../alerts/VariablesAlerts";
 
 interface ConfiguracionState {
     inputValues: Configuracion 
@@ -42,7 +44,13 @@ export default function ConfiguracionComponent() {
         console.log(inputValues);
         const response=  axios.post('https://localhost:44317/api/Config/',inputValues)
         .then(response => response.data)  
+
+        alertMessage(SUCCESS_MESSAGE_REGISTER,ICON_SUCCESS);
+
+        refreshForm();
+
         return response
+
                  
         }
 
@@ -54,6 +62,16 @@ export default function ConfiguracionComponent() {
                 [e.target.name]: e.target.value
             })   
                   
+        }
+
+        const refreshForm = () => {
+            setInputValues({
+                ...inputValues,
+                key: '',
+                value: ''
+        
+            })
+        
         }
 
         
@@ -97,7 +115,7 @@ export default function ConfiguracionComponent() {
           
 
         </div>
-        <Footer /></>
+        </>
 
     );
 }

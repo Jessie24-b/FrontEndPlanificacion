@@ -10,7 +10,8 @@ function Home() {
 
       
       <><Navbar />'
-      <Footer /></>
+     
+      </>
     
     );
   }
