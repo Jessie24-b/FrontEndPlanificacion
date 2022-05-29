@@ -9,7 +9,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import FormRegister from './components/formRegister';
 import Home from './pages/Home';
 import Configuracion from './pages/configuracion';
-
+import Mempool from './pages/menpool';
 
 function App() {
   return (
@@ -20,6 +20,8 @@ function App() {
       <Route path='/Register' element={ <FormRegister/>}></Route>
       <Route path='/Home' element={ <Home/>}></Route>
       <Route path='/Configuracion' element={ <Configuracion/>}></Route>
+      <Route path='/Portafolio' element={ <Mempool/>}></Route>
+
     </Routes>
   </BrowserRouter>
 

@@ -36,12 +36,12 @@ export default function ListConfiguration({ configs }: Props) {
     }
 
     const handleEdit = (e: React.MouseEvent<HTMLButtonElement>) =>{
-        
-        console.log( e.currentTarget.value);
-        setInputValues({
-            ...inputValues,
-            id: e.currentTarget.value
-        })
+
+         axios.get('https://localhost:44317/api/Config/getConfig/'+e.currentTarget.value)
+        .then(response => { 
+          setInputValues(response.data);
+        })  
+       
         handleModal()
     }
 
@@ -51,6 +51,8 @@ export default function ListConfiguration({ configs }: Props) {
         const response=  axios.put('https://localhost:44317/api/Config/',inputValues)
         .then(response => response.data)  
         return response 
+
+        handleModal()
     }
 
     const handleDeleteConfig = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -82,19 +84,29 @@ export default function ListConfiguration({ configs }: Props) {
 
                         <Form.Group className="mb-3"  controlId="keyControl">
                             <Form.Label>Nombre de configuración</Form.Label>
-                            <Form.Control name="key" onChange={handleChange} type="text" placeholder="Ingrese el nombre" />
+                            <Form.Control 
+                            name="key" 
+                            onChange={handleChange}
+                             type="text"
+                              placeholder="Ingrese el nombre" 
+                              value={inputValues.key}/>
                             
                         </Form.Group>
 
                         <Form.Group className="mb-3"  controlId="valueControl">
                             <Form.Label>Valor de configuración</Form.Label>
-                            <Form.Control name="value" onChange={handleChange} type="text" placeholder="Ingrese el valor" />
+                            <Form.Control 
+                            name="value" 
+                            onChange={handleChange} 
+                            type="text" 
+                            placeholder="Ingrese el valor" 
+                            value={inputValues.value}/>
                         </Form.Group>
                         
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="success" onClick={handleSumitModal}>Guardar</Button>
+                    <Button variant="success" onClick={handleSumitModal} >Guardar</Button>
                     <Button onClick={handleModal}>Cancelar</Button>
                 </Modal.Footer>
             </Modal>
