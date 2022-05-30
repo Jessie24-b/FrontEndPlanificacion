@@ -1,4 +1,5 @@
 import React from "react"
+import registerMempool from "../service/mempoolService"
 
 
 interface Documents {
@@ -26,15 +27,16 @@ const Mempool = () => {
     };
     //Se supone que este inserta con el boton 
     const insertArchivos = function (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
-        console.log(archivos);
+        console.log(archivos?.item(0));
         if (archivos) {
 
             Array.from(archivos).forEach(archivo => {
                 const reader = new FileReader();
                 reader.readAsDataURL(archivo);
                 reader.onload = function () {
+                    
                     const base64 = reader.result;
-                    //Axios
+                    //registerMempool();
                 }
 
             })
@@ -46,6 +48,7 @@ const Mempool = () => {
         <div>
             
             <div>
+                
                 <input type="file" name="files" multiple onChange={subirArchivos} />
                 <button onClick={insertArchivos} >Subir Archivos</button>
             </div>

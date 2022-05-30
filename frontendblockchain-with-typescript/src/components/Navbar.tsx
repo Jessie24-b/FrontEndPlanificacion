@@ -26,7 +26,7 @@ function Navbar(){
                 </li>
                 <FaFolder className="icons"/>
                 <li className="nav-item">
-                    <Link className="nav-link" to="/Portafolio">Portafolio</Link>
+                    <Link className="nav-link" to="/Portafolio">Mempool</Link>
                 </li>
                 <li className="nav-item">
               
