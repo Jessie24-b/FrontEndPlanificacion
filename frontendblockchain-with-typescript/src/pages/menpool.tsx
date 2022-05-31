@@ -1,5 +1,7 @@
+import axios from "axios";
 import React from "react"
 import registerMempool from "../service/mempoolService"
+import MempoolS from "../types/mempool.type";
 
 
 interface Documents {
@@ -11,9 +13,22 @@ interface Documents {
     webkitRelativePath: string
 }
 
+interface MempoolState {
+    inputValues: MempoolS
+}
+
+
 const Mempool = () => {
 
     const [archivos, setArchivos] = React.useState<FileList | null>()
+
+    const [inputValues, setInputValues] = React.useState<MempoolState["inputValues"]>({
+        archivo: '',
+        propietario: '',
+        tipoArchivo: '',
+        fecha: '',
+        tamanio: '',
+    })
 
     //Obtiene los archivos y se ingresa al useState trato que inserten varios
 
@@ -34,25 +49,47 @@ const Mempool = () => {
                 const reader = new FileReader();
                 reader.readAsDataURL(archivo);
                 reader.onload = function () {
-                    
+
                     const base64 = reader.result;
-                    //registerMempool();
+
+                    setInputValues({
+                        ...inputValues,
+                        archivo: base64,
+                        propietario: 'Abigail',
+                        tipoArchivo: archivo.type,
+                        fecha: '2022-05-30' ,
+                        tamanio: '56',
+
+                    })   
+
+                    const variable=inputValues.archivo
+                    console.log(variable);
+                    
+                    //registerMempool(inputValues);
+
+                    //axios.post<MempoolS>('https://localhost:44317/api/Mempool',inputValues).then(response => response.data)  
+                   
                 }
 
             })
         }
     }
 
+    const nuevaF=()=>{
+        console.log(inputValues);
+    }
+
 
     return (
         <div>
-            
+
             <div>
-                
+
                 <input type="file" name="files" multiple onChange={subirArchivos} />
                 <button onClick={insertArchivos} >Subir Archivos</button>
+                <button onClick={nuevaF}>Nuevo</button>
             </div>
-            
+
         </div>
     );
 
