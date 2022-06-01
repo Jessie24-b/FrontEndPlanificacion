@@ -1,6 +1,5 @@
 import axios from "axios";
 import React from "react"
-import registerMempool from "../service/mempoolService"
 import MempoolS from "../types/mempool.type";
 import {registerMempool,getMempoolList,deleteMempool} from "../service/mempoolService"
 
@@ -71,14 +70,16 @@ const Mempool = () => {
 
     const nuevaF=(archivo: File, base64: any)=>{
      
-    const listMempool=()=>{
-       getMempoolList().then(response => {
-        console.log(response)
-    })  
+   
 
       return 
        
     }
+
+    const listMempool=()=>{
+        getMempoolList().then(response => {
+         console.log(response)
+     })  
 
 
     }
