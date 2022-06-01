@@ -51,9 +51,7 @@ const Mempool = () => {
                    }
                     
                    
-                        fecha: '2022-05-30',
-                        tamanio: '56',
-                    }
+            
                     //registerMempool(inputValues);
 
                     axios.post<MempoolS>('https://localhost:44317/api/Mempool', document).then(response => response.data)
@@ -64,7 +62,7 @@ const Mempool = () => {
         }
     }
 
-    const nuevaF=(archivo: File, base64: any)=>{
+    
      
    
 
@@ -117,12 +115,12 @@ const Mempool = () => {
                     </div>
                 </div>
 
-                <input type="file" name="files" multiple onChange={subirArchivos} />
+             {/*    <input type="file" name="files" multiple onChange={subirArchivos} />
                 <button onClick={insertArchivos} >Subir Archivos</button>
                 
 
                 <button onClick={listMempool}>Listar Mempool</button>
-                <button onClick={deleteMem}>Delete Mempool</button>
+                <button onClick={deleteMem}>Delete Mempool</button> */}
 
             </div>
 
@@ -130,5 +128,4 @@ const Mempool = () => {
     );
 
 }
-
 export default Mempool;
