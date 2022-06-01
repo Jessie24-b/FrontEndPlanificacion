@@ -31,14 +31,14 @@ const Mempool = () => {
     const subirArchivos = function (e: React.ChangeEvent<HTMLInputElement>) {
 
         const fileList = e.target.files;
-        console.log(fileList);
+        // console.log(fileList);
         if (!fileList) return;
         setArchivos(fileList);
 
     };
     //Se supone que este inserta con el boton 
     const insertArchivos = function (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
-       
+        let date = new Date();
         console.log(archivos?.item(0));
         if (archivos) {
 
@@ -53,12 +53,11 @@ const Mempool = () => {
                         archivo: base64,
                         propietario: 'Abigail',
                         tipoArchivo: archivo.type,
-                        fecha: '2022-05-30' ,
-                        tamanio: '56',
+                        fecha: date.toLocaleDateString() ,
+                        tamanio: archivo.size.toLocaleString(),
                    }
-                    console.log(inputValues)
-
                     
+                   
                     //registerMempool(inputValues);
 
                     axios.post<MempoolS>('https://localhost:44317/api/Mempool',document).then(response => response.data)  
