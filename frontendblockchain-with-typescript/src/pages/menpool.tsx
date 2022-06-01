@@ -20,15 +20,11 @@ interface MempoolState {
 
 const Mempool = () => {
 
+   
+
     const [archivos, setArchivos] = React.useState<FileList | null>()
 
-    const [inputValues, setInputValues] = React.useState<MempoolState["inputValues"]>({
-        archivo: '',
-        propietario: '',
-        tipoArchivo: '',
-        fecha: '',
-        tamanio: '',
-    })
+    const [inputValues, setInputValues] = React.useState<Array<MempoolState["inputValues"]>>([])
 
     //Obtiene los archivos y se ingresa al useState trato que inserten varios
 
@@ -42,6 +38,7 @@ const Mempool = () => {
     };
     //Se supone que este inserta con el boton 
     const insertArchivos = function (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
+       
         console.log(archivos?.item(0));
         if (archivos) {
 
@@ -52,22 +49,19 @@ const Mempool = () => {
 
                     const base64 = reader.result;
 
-                    setInputValues({
-                        ...inputValues,
+                    var document =  {
                         archivo: base64,
                         propietario: 'Abigail',
                         tipoArchivo: archivo.type,
                         fecha: '2022-05-30' ,
                         tamanio: '56',
+                   }
+                    console.log(inputValues)
 
-                    })   
-
-                    const variable=inputValues.archivo
-                    console.log(variable);
                     
                     //registerMempool(inputValues);
 
-                    //axios.post<MempoolS>('https://localhost:44317/api/Mempool',inputValues).then(response => response.data)  
+                    axios.post<MempoolS>('https://localhost:44317/api/Mempool',document).then(response => response.data)  
                    
                 }
 
@@ -75,8 +69,11 @@ const Mempool = () => {
         }
     }
 
-    const nuevaF=()=>{
-        console.log(inputValues);
+    const nuevaF=(archivo: File, base64: any)=>{
+     
+
+      return 
+       
     }
 
 
@@ -87,7 +84,7 @@ const Mempool = () => {
 
                 <input type="file" name="files" multiple onChange={subirArchivos} />
                 <button onClick={insertArchivos} >Subir Archivos</button>
-                <button onClick={nuevaF}>Nuevo</button>
+                
             </div>
 
         </div>
