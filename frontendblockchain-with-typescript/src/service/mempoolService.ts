@@ -1,13 +1,14 @@
 
 import axios from "axios";
-import Mempool from "../types/mempool.type";
 // import httpRoutes from "../routes/httpRoutes"
+import MempoolS from "../types/mempool.type";
 
-export  function registerMempool (mempool: Mempool)  {   
+export default function registerMempool (mempool: MempoolS)  {   
 
-    const response=  axios.post<Mempool>('https://localhost:44317/api/Usuario/',mempool).then(response => response.data)  
+    console.log(mempool);
+    const response=  axios.post<MempoolS>('https://localhost:44317/api/Mempool',mempool).then(response => response.data)  
    // alertMessage(SUCCESS_MESSAGE_REGISTER,ICON_SUCCESS);
-  
+
  return response
 
 
