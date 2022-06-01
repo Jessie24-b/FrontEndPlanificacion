@@ -1,21 +1,26 @@
 import axios from "axios";
-import React from "react"
+import  {useEffect, useState} from "react"
 import MempoolS from "../types/mempool.type";
-import {registerMempool,getMempoolList,deleteMempool} from "../service/mempoolService"
-import {MdDeleteForever} from 'react-icons/md'
-import {GrDocumentDownload} from 'react-icons/gr'
+import {registerMempool,getMempoolList} from "../service/mempoolService"
+import { CardsDocumentsComponets } from "../components/cardsDocumentsComponets";
 
-
-/* interface MempoolState {
-    inputValues: MempoolS
-} */
 
 
 const Mempool = () => {
 
 
+    const [archivos, setArchivos] = useState<FileList | null>()
 
-    const [archivos, setArchivos] = React.useState<FileList | null>()
+    const [listArchivos, setAllArchivos] = useState<Array<MempoolS>>([])
+
+    
+    useEffect(() =>{
+        getMempoolList().then(response => {     
+            setAllArchivos(response);
+        })  
+      
+    }, [])
+   
 
 
     //Obtiene los archivos y se ingresa al useState trato que inserten varios
@@ -23,7 +28,7 @@ const Mempool = () => {
     const subirArchivos = function (e: React.ChangeEvent<HTMLInputElement>) {
 
         const fileList = e.target.files;
-        // console.log(fileList);
+        
         if (!fileList) return;
         setArchivos(fileList);
 
@@ -32,8 +37,7 @@ const Mempool = () => {
     const insertArchivos = function (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
         let date = new Date();
 
-        console.log(archivos?.item(0));
-        
+       
         if (archivos) {
             Array.from(archivos).forEach(archivo => {
                 const reader = new FileReader();
@@ -54,7 +58,8 @@ const Mempool = () => {
             
                     //registerMempool(inputValues);
 
-                    axios.post<MempoolS>('https://localhost:44317/api/Mempool', document).then(response => response.data)
+                    axios.post<MempoolS>('https://localhost:44317/api/Mempool', document)
+                    .then(response => response.data)
 
                 }
 
@@ -63,23 +68,11 @@ const Mempool = () => {
     }
 
     
-     
+  
+
    
 
-
-    const listMempool=()=>{
-        getMempoolList().then(response => {
-         console.log(response)
-     })  
-
-
-    }
-
-    const deleteMem=()=>{
-
-        deleteMempool("6296fd03de34e26ff4d44799");
-    }
-
+   
 
     return (
         <div>
@@ -98,29 +91,10 @@ const Mempool = () => {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="card align-items-center" style={{width: '10rem'}}>
-                        <img src={"https://thumbs.dreamstime.com/b/carpeta-de-archivos-amarilla-con-los-documentos-34692828.jpg"}
-                         className="card-img-top" alt="..." height={'100px'} style={{width: '100px'}}/>
-                            <div className="card-body p-0">
-                                <h5 className="card-title">Archivo</h5>
-                               <div className="row">
-                               <div className="col-sm-6">
-                                <button className=" btn-danger"> <MdDeleteForever size={30} className="icons"/></button>
-                                </div>
-                                <div className="col-sm-6">
-                                <button className=" btn-primary"> <GrDocumentDownload size={30} className="icons"/></button>
-                                </div>
-                               </div>                              
-                            </div>
-                    </div>
+                   <CardsDocumentsComponets listArchivos= {listArchivos}/>
                 </div>
 
-             {/*    <input type="file" name="files" multiple onChange={subirArchivos} />
-                <button onClick={insertArchivos} >Subir Archivos</button>
-                
-
-                <button onClick={listMempool}>Listar Mempool</button>
-                <button onClick={deleteMem}>Delete Mempool</button> */}
+             
 
             </div>
 
