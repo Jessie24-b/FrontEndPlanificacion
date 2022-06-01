@@ -33,7 +33,7 @@ export default function ConfiguracionComponent() {
     useEffect(() =>{
         const response=  axios.get('https://localhost:44317/api/Config/')
         .then(response => {
-            console.log(response.data);
+           
             setConfigs(response.data);
         })  
        
