@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react"
-import registerMempool from "../service/mempoolService"
 import MempoolS from "../types/mempool.type";
+import {registerMempool,getMempoolList,deleteMempool} from "../service/mempoolService"
 
 
 interface Documents {
@@ -40,8 +40,8 @@ const Mempool = () => {
     const insertArchivos = function (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
         let date = new Date();
         console.log(archivos?.item(0));
+        
         if (archivos) {
-
             Array.from(archivos).forEach(archivo => {
                 const reader = new FileReader();
                 reader.readAsDataURL(archivo);
@@ -70,9 +70,23 @@ const Mempool = () => {
 
     const nuevaF=(archivo: File, base64: any)=>{
      
+   
 
       return 
        
+    }
+
+    const listMempool=()=>{
+        getMempoolList().then(response => {
+         console.log(response)
+     })  
+
+
+    }
+
+    const deleteMem=()=>{
+
+        deleteMempool("6296fd03de34e26ff4d44799");
     }
 
 
@@ -84,6 +98,9 @@ const Mempool = () => {
                 <input type="file" name="files" multiple onChange={subirArchivos} />
                 <button onClick={insertArchivos} >Subir Archivos</button>
                 
+
+                <button onClick={listMempool}>Listar Mempool</button>
+                <button onClick={deleteMem}>Delete Mempool</button>
             </div>
 
         </div>
