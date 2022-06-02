@@ -26,6 +26,7 @@ export const CardsDocumentsComponets = ({listArchivos}: props) => {
                             <li className='card-item' key={arch.id}>
                                 <CardDocumentComponent document ={{
                                     id: arch.id,
+                                    archivo:arch.archivo,
                                     propietario: arch.propietario,
                                     tipo: arch.tipoArchivo,
                                     fecha: arch.fecha,

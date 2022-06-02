@@ -1,7 +1,6 @@
 
 import axios from "axios";
 import {BASEURL,MEMPOOL_CONTROLLER} from "../routes/httpRoutes"
-import MempoolS from "../types/mempool.type";
 import { alertMessage, alertQuestion } from "../alerts/alerts";
 import {ACTION_SUCCESS_DELETE,ICON_SUCCESS,QUESTION_MESSAGE_DELETE,CONFIRM_BUTTON_TEXT_DELETE} from "../alerts/VariablesAlerts";
 

@@ -33,6 +33,18 @@ const Mempool = () => {
         setArchivos(fileList);
 
     };
+
+    const validationTypeArchive=(type:string)=>{
+        let numberSlice=0;
+        if(type="image/jpeg"){
+            numberSlice=19;
+        }
+        if(type="application/pdf"){
+            numberSlice=28;
+        }
+
+        return numberSlice;
+    }
     //Se supone que este inserta con el boton 
     const insertArchivos = function (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
         let date = new Date();
@@ -40,26 +52,27 @@ const Mempool = () => {
        
         if (archivos) {
             Array.from(archivos).forEach(archivo => {
+                
                 const reader = new FileReader();
                 reader.readAsDataURL(archivo);
                 reader.onload = function () {
 
                     const base64 = reader.result;
+                   
+                    let arc=base64?.toString().slice(validationTypeArchive(archivo.type));
+                  
 
                     var document = {
-                        archivo: base64,
+                        archivo: arc,
                         propietario: 'Abigail',
                         tipoArchivo: archivo.type,
                         fecha: date.toLocaleDateString() ,
                         tamanio: archivo.size.toLocaleString(),
                    }
                     
-                   
-            
+                
                     registerMempool(document);
 
-                    // axios.post<MempoolS>('https://localhost:44317/api/Mempool', document)
-                    // .then(response => response.data)
 
                 }
 
@@ -69,10 +82,6 @@ const Mempool = () => {
 
     
   
-
-   
-
-   
 
     return (
         <div>
