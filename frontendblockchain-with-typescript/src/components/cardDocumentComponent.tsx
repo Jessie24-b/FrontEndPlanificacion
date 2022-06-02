@@ -25,7 +25,7 @@ export const CardDocumentComponent = ({ document }: any) => {
 
         //url funciona para abrirlo en una pestaña
         const url = URL.createObjectURL(blob);
-
+        console.log(url)
         fileDownload(blob,'Prueba1.pdf')
     
 
