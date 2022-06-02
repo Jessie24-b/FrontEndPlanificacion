@@ -1,14 +1,20 @@
 import {MdDeleteForever} from 'react-icons/md'
 import {GrDocumentDownload} from 'react-icons/gr'
+import {deleteMempool} from "../service/mempoolService"
 
 
 
 export const CardDocumentComponent = ({document}: any) => {
   
-    const deleteMem=()=>{
+    const deleteMem=(id: string)=>{
       
-       
-        //deleteMempool("62959bf02c0732f751f2f99c");
+       deleteMempool(id);
+     
+    }
+
+    const downloadMem=(base64:string)=>{
+
+
     }
     return(
         
@@ -23,10 +29,10 @@ export const CardDocumentComponent = ({document}: any) => {
                            <h6 className="card-subtitle mb-2 text-muted">tamaño:{document.tamanio}</h6>
                           <div className="row">
                           <div className="col-sm-6">
-                           <button className=" btn-danger" onClick={deleteMem}> <MdDeleteForever size={30} className="icons"/></button>
+                           <button className=" btn-danger" onClick={() => deleteMem(document.id)}> <MdDeleteForever size={30} className="icons"/></button>
                            </div>
                            <div className="col-sm-6">
-                           <button className=" btn-primary"> <GrDocumentDownload size={30} className="icons"/></button>
+                           <button className=" btn-primary"> <GrDocumentDownload size={30} onClick={() => downloadMem(document.archivo)} className="icons"/></button>
                            </div>
                           </div>                              
                        </div>

@@ -56,10 +56,10 @@ const Mempool = () => {
                     
                    
             
-                    //registerMempool(inputValues);
+                    registerMempool(document);
 
-                    axios.post<MempoolS>('https://localhost:44317/api/Mempool', document)
-                    .then(response => response.data)
+                    // axios.post<MempoolS>('https://localhost:44317/api/Mempool', document)
+                    // .then(response => response.data)
 
                 }
 
