@@ -1,7 +1,7 @@
 import { MdDeleteForever } from 'react-icons/md'
 import { GrDocumentDownload } from 'react-icons/gr'
 import { deleteMempool } from "../service/mempoolService"
-// import fileDownload from 'js-file-download'
+
 
 var fileDownload = require('js-file-download');
 
@@ -11,6 +11,21 @@ export const CardDocumentComponent = ({ document }: any) => {
 
         deleteMempool(id);
 
+    }
+
+    const extensionBlob=(tipo:any)=>{
+        let extensionText="";
+        if (tipo == "image/jpeg") {
+            extensionText="jpeg";
+        }
+        if (tipo == "application/pdf") {
+            extensionText="pdf";
+        }
+        if(tipo=="image/png"){
+            extensionText="png";
+        }
+
+        return extensionText;
     }
 
     const downloadMem = (base64: any,tipo:any) => {
@@ -25,22 +40,14 @@ export const CardDocumentComponent = ({ document }: any) => {
 
         //url funciona para abrirlo en una pestaña
         const url = URL.createObjectURL(blob);
-        console.log(url)
-        fileDownload(blob,'Prueba1.pdf')
+
+        //validacion para el tipo de extension del archivo
+        const extensionText= extensionBlob(tipo);
+        fileDownload(blob,'Prueba1.'+extensionText)
     
 
         //window.open(url, '_blank');
 
-    }
-
-
-    const downloadPDF = (base64: string) => {
-        const linkSource = `data:application/pdf;base64,${base64}`;
-        const downloadLink = document.createElement('a');
-        const fileName = "abc.pdf";
-        downloadLink.href = linkSource;
-        downloadLink.download = fileName;
-        downloadLink.click();
     }
 
     return (

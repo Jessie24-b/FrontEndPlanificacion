@@ -1,7 +1,9 @@
+import axios from "axios";
+import { useEffect, useState } from "react"
 
 import  {useEffect, useState} from "react"
 import MempoolS from "../types/mempool.type";
-import {registerMempool,getMempoolList} from "../service/mempoolService"
+import { registerMempool, getMempoolList } from "../service/mempoolService"
 import { CardsDocumentsComponets } from "../components/cardsDocumentsComponets";
 import Navbar from '../components/Navbar';
 
@@ -14,12 +16,12 @@ const Mempool = () => {
 
     const [listArchivos, setAllArchivos] = useState<Array<MempoolS>>([])
 
-    
-    useEffect(() =>{
-        getMempoolList().then(response => {     
+
+    useEffect(() => {
+        getMempoolList().then(response => {
             setAllArchivos(response);
-        })  
-      
+        })
+
     }, [])
 
     useEffect(() => {
@@ -30,24 +32,28 @@ const Mempool = () => {
    
 
 
+
     //Obtiene los archivos y se ingresa al useState trato que inserten varios
 
     const subirArchivos = function (e: React.ChangeEvent<HTMLInputElement>) {
 
         const fileList = e.target.files;
-        
+
         if (!fileList) return;
         setArchivos(fileList);
 
     };
 
-    const validationTypeArchive=(type:string)=>{
-        let numberSlice=0;
-        if(type="image/jpeg"){
-            numberSlice=19;
+    const validationTypeArchive = (type: string) => {
+        let numberSlice = 0;
+        if (type == "image/jpeg") {
+            numberSlice = 23;
         }
-        if(type="application/pdf"){
-            numberSlice=28;
+        if (type == "application/pdf") {
+            numberSlice = 28;
+        }
+        if(type=="image/png"){
+            numberSlice=22;
         }
 
         return numberSlice;
@@ -56,28 +62,30 @@ const Mempool = () => {
     const insertArchivos = function (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) {
         let date = new Date();
 
-       
+
         if (archivos) {
             Array.from(archivos).forEach(archivo => {
-                
+
                 const reader = new FileReader();
                 reader.readAsDataURL(archivo);
                 reader.onload = function () {
 
                     const base64 = reader.result;
-                   
-                    let arc=base64?.toString().slice(validationTypeArchive(archivo.type));
-                  
+                    console.log(base64);
+                    const numberS=validationTypeArchive(archivo.type);
+                    console.log(numberS);
+                    let arc = base64?.toString().slice(numberS);
+                    console.log(arc);
 
                     var document = {
                         archivo: arc,
                         propietario: localStorage.getItem("user"),
                         tipoArchivo: archivo.type,
-                        fecha: date.toLocaleDateString() ,
+                        fecha: date.toLocaleDateString(),
                         tamanio: archivo.size.toLocaleString(),
-                   }
-                    
-                
+                    }
+
+
                     registerMempool(document);
 
 
@@ -87,8 +95,8 @@ const Mempool = () => {
         }
     }
 
-    
-  
+
+
 
     return (
         <div>
@@ -108,12 +116,13 @@ const Mempool = () => {
                     </div>
                 </div>
                 <div className="row">
+                    <CardsDocumentsComponets listArchivos={listArchivos} />
                    <CardsDocumentsComponets listArchivos= {listArchivos}/>
 
                   
                 </div>
 
-             
+
 
             </div>
 
