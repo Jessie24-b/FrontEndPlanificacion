@@ -1,13 +1,16 @@
 
 import axios from "axios";
-// import httpRoutes from "../routes/httpRoutes"
+import {BASEURL,MEMPOOL_CONTROLLER} from "../routes/httpRoutes"
 import MempoolS from "../types/mempool.type";
+import { alertMessage, alertQuestion } from "../alerts/alerts";
+import {ACTION_SUCCESS_DELETE,ICON_SUCCESS,QUESTION_MESSAGE_DELETE,CONFIRM_BUTTON_TEXT_DELETE} from "../alerts/VariablesAlerts";
 
-export function registerMempool (mempool: MempoolS)  {   
 
-    console.log(mempool);
-    const response=  axios.post<MempoolS>('https://localhost:44317/api/Mempool',mempool).then(response => response.data)  
-   // alertMessage(SUCCESS_MESSAGE_REGISTER,ICON_SUCCESS);
+export function registerMempool (mempool:any)  {   
+
+  
+    const response=  axios.post(BASEURL+MEMPOOL_CONTROLLER,mempool).then(response => response.data)  
+    alertMessage(ACTION_SUCCESS_DELETE,ICON_SUCCESS);
 
  return response
 
@@ -15,14 +18,16 @@ export function registerMempool (mempool: MempoolS)  {
 }
 
 export  function getMempoolList(){
-  const response=  axios.get('https://localhost:44317/api/Mempool').then(response => response.data) 
+  const response=  axios.get(BASEURL+MEMPOOL_CONTROLLER).then(response => response.data) 
   
   return response;
 
 }
 
 export function deleteMempool(id:string){
-  const response=  axios.delete('https://localhost:44317/api/Mempool/'+id).then(response => response.data) 
+  const response=  axios.delete(BASEURL+MEMPOOL_CONTROLLER+'/'+id).then(response => response.data) 
+
+  alertMessage(ACTION_SUCCESS_DELETE,ICON_SUCCESS);
 
   return response;
 
