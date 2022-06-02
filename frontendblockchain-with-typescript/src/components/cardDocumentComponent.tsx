@@ -1,8 +1,9 @@
 import { MdDeleteForever } from 'react-icons/md'
 import { GrDocumentDownload } from 'react-icons/gr'
 import { deleteMempool } from "../service/mempoolService"
+// import fileDownload from 'js-file-download'
 
-
+var fileDownload = require('js-file-download');
 
 export const CardDocumentComponent = ({ document }: any) => {
 
@@ -22,10 +23,13 @@ export const CardDocumentComponent = ({ document }: any) => {
         }
         const blob = new Blob([int8Array], { type: tipo });
 
+        //url funciona para abrirlo en una pestaña
         const url = URL.createObjectURL(blob);
+
+        fileDownload(blob,'Prueba1.pdf')
     
 
-        window.open(url, '_blank');
+        //window.open(url, '_blank');
 
     }
 
