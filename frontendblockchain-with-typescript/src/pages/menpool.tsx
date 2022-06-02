@@ -1,8 +1,9 @@
-import axios from "axios";
+
 import  {useEffect, useState} from "react"
 import MempoolS from "../types/mempool.type";
 import {registerMempool,getMempoolList} from "../service/mempoolService"
 import { CardsDocumentsComponets } from "../components/cardsDocumentsComponets";
+import Navbar from '../components/Navbar';
 
 
 
@@ -20,6 +21,12 @@ const Mempool = () => {
         })  
       
     }, [])
+
+    useEffect(() => {
+        getMempoolList().then(response => {     
+            setAllArchivos(response);
+        })  
+      });
    
 
 
@@ -64,7 +71,7 @@ const Mempool = () => {
 
                     var document = {
                         archivo: arc,
-                        propietario: 'Abigail',
+                        propietario: localStorage.getItem("user"),
                         tipoArchivo: archivo.type,
                         fecha: date.toLocaleDateString() ,
                         tamanio: archivo.size.toLocaleString(),
@@ -85,7 +92,8 @@ const Mempool = () => {
 
     return (
         <div>
-
+             <Navbar />'
+       
             <div className="container">
                 <div className="row">
                     <h1 className="font-weight-bold text-uppercase text-center bg-primary text-white">Administración de Archivos </h1>
@@ -101,6 +109,8 @@ const Mempool = () => {
                 </div>
                 <div className="row">
                    <CardsDocumentsComponets listArchivos= {listArchivos}/>
+
+                  
                 </div>
 
              

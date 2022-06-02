@@ -31,13 +31,21 @@ export default function ConfiguracionComponent() {
     const [configs, setConfigs] = useState<Array<ListConfig>>([])
 
     useEffect(() =>{
-        const response=  axios.get('https://localhost:44317/api/Config/')
+        axios.get('https://localhost:44317/api/Config/')
         .then(response => {
            
             setConfigs(response.data);
         })  
        
     }, [])
+
+    useEffect(() => {
+         axios.get('https://localhost:44317/api/Config/')
+        .then(response => {
+           
+            setConfigs(response.data);
+        })  
+      });
       
 
       const  handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
