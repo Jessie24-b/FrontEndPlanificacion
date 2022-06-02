@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import { Link } from "react-router-dom";
 import { FaTools } from "react-icons/fa";
 import { FaHome } from "react-icons/fa";
@@ -26,7 +25,7 @@ function Navbar(){
                 </li>
                 <FaFolder className="icons"/>
                 <li className="nav-item">
-                    <a className="nav-link" href="#">Portafolio</a>
+                    <Link className="nav-link" to="/Portafolio">Mempool</Link>
                 </li>
                 <li className="nav-item">
               

@@ -11,6 +11,8 @@ interface LoginState {
 
 export default function Login() {
 
+    localStorage.setItem("user", '');
+
     const [inputValues, setInputValues] = useState<LoginState["inputValues"]>({
         user: '',
         password: ''

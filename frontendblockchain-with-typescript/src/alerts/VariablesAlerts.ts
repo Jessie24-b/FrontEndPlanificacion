@@ -14,3 +14,5 @@ export const CONFIRM_BUTTON_TEXT_UPDATE: string="Actualizar";
 
 export const ACTION_SUCCESS_DELETE: string="Eliminado correctamente";
 export const ACTION_SUCCESS_UPDATE: string="Actualizado correctamente";
+
+export const ACTION_SUCCESS_UPDATE2: string="Actualizado correctamente 2";
