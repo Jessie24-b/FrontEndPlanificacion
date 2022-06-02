@@ -1,7 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
-
-import  {useEffect, useState} from "react"
 import MempoolS from "../types/mempool.type";
 import { registerMempool, getMempoolList } from "../service/mempoolService"
 import { CardsDocumentsComponets } from "../components/cardsDocumentsComponets";
