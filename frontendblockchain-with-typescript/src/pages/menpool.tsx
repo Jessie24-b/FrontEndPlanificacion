@@ -69,11 +69,11 @@ const Mempool = () => {
                 reader.onload = function () {
 
                     const base64 = reader.result;
-                    console.log(base64);
+                  
                     const numberS=validationTypeArchive(archivo.type);
                     console.log(numberS);
                     let arc = base64?.toString().slice(numberS);
-                    console.log(arc);
+                   
 
                     var document = {
                         archivo: arc,
@@ -115,7 +115,7 @@ const Mempool = () => {
                 </div>
                 <div className="row">
                     <CardsDocumentsComponets listArchivos={listArchivos} />
-                   <CardsDocumentsComponets listArchivos= {listArchivos}/>
+                   
 
                   
                 </div>
