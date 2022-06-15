@@ -13,22 +13,22 @@ export const CardDocumentComponent = ({ document }: any) => {
 
     }
 
-    const extensionBlob=(tipo:any)=>{
-        let extensionText="";
+    const extensionBlob = (tipo: any) => {
+        let extensionText = "";
         if (tipo == "image/jpeg") {
-            extensionText="jpeg";
+            extensionText = "jpeg";
         }
         if (tipo == "application/pdf") {
-            extensionText="pdf";
+            extensionText = "pdf";
         }
-        if(tipo=="image/png"){
-            extensionText="png";
+        if (tipo == "image/png") {
+            extensionText = "png";
         }
 
         return extensionText;
     }
 
-    const downloadMem = (base64: any,tipo:any) => {
+    const downloadMem = (base64: any, tipo: any) => {
 
         const byteString = window.atob(base64);
         const arrayBuffer = new ArrayBuffer(byteString.length);
@@ -42,11 +42,16 @@ export const CardDocumentComponent = ({ document }: any) => {
         const url = URL.createObjectURL(blob);
 
         //validacion para el tipo de extension del archivo
-        const extensionText= extensionBlob(tipo);
-        fileDownload(blob,'Prueba1.'+extensionText)
-    
+        const extensionText = extensionBlob(tipo);
+        fileDownload(blob, 'Prueba1.' + extensionText)
+
 
         //window.open(url, '_blank');
+
+    }
+
+    const deleteListMempool=(id:string)=>{
+        console.log(id);
 
     }
 
@@ -66,8 +71,12 @@ export const CardDocumentComponent = ({ document }: any) => {
                         <button className=" btn-danger" onClick={() => deleteMem(document.id)}> <MdDeleteForever size={30} className="icons" /></button>
                     </div>
                     <div className="col-sm-6">
-                        <button className=" btn-primary"> <GrDocumentDownload size={30} onClick={() => downloadMem(document.archivo,document.tipo)} className="icons" /></button>
+                        <button className=" btn-primary"> <GrDocumentDownload size={30} onClick={() => downloadMem(document.archivo, document.tipo)} className="icons" /></button>
                     </div>
+                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" onClick={()=>deleteListMempool(document.id)}/>
+                        <label className="form-check-label" htmlFor="flexCheckDefault">
+                            Seleccionar
+                        </label>
                 </div>
             </div>
         </div>

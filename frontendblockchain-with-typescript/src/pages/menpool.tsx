@@ -1,13 +1,15 @@
 import axios from "axios";
-import { useEffect, useState } from "react"
+import {useEffect, useState } from "react"
 import MempoolS from "../types/mempool.type";
 import { registerMempool, getMempoolList } from "../service/mempoolService"
 import { CardsDocumentsComponets } from "../components/cardsDocumentsComponets";
 import Navbar from '../components/Navbar';
-
-
+import PropsTypes from "prop-types"
 
 const Mempool = () => {
+
+// class Mempool extends React.Component{
+   
 
 
     const [archivos, setArchivos] = useState<FileList | null>()
@@ -93,6 +95,10 @@ const Mempool = () => {
         }
     }
 
+    // const handleSelect=(e)=>{
+
+    // }
+
 
 
 
@@ -118,6 +124,7 @@ const Mempool = () => {
                    
 
                   
+                    <CardsDocumentsComponets listArchivos={listArchivos}  /> /*handleSelect=this.handleSelect* */
                 </div>
 
 
@@ -129,3 +136,6 @@ const Mempool = () => {
 
 }
 export default Mempool;
+
+
+
