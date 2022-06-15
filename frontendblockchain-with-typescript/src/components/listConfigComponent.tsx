@@ -50,9 +50,10 @@ export default function ListConfiguration({ configs }: Props) {
 
         const response=  axios.put('https://localhost:44317/api/Config/',inputValues)
         .then(response => response.data)  
+        handleModal()
         return response 
 
-        handleModal()
+        
     }
 
     const handleDeleteConfig = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -71,6 +72,8 @@ export default function ListConfiguration({ configs }: Props) {
         })
 
     }
+
+    
 
     return (
         <div className="table-scroll">
