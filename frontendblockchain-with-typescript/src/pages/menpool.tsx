@@ -15,15 +15,10 @@ var Zip = require('jszip')();
 
 const Mempool = () => {
 
-    // class Mempool extends React.Component{
-
-
     const [isDisabled, setDisabled] = useState(true);
     const [isDisabledEliminar, setDisabledEliminar] = useState(true);
     const [isDisabledDescargar, setDisabledDescargar] = useState(true);
-
     const [archivos, setArchivos] = useState<FileList | null>()
-
     const [listArchivos, setAllArchivos] = useState<Array<MempoolS>>([])
     const [reloadData, setReloadData] = useState(false);
     const [arrayIds,setArrayIds]=useState<Array<string>>([]);
@@ -80,9 +75,12 @@ const Mempool = () => {
 
     //metodo para descargar multiples archivos seleccionados
     const donwloadAll= () =>{
+    let cont=0;
        listArchivos.forEach(list =>{
+        if(list.id == arrayIds[cont]){
         Zip.file(list.nombre, list.archivo, {base64: true});
-
+        cont++;
+        }
        })
        Zip.generateAsync({type: 'blob'}).then(function(content: any){
             saveAs(content, "archivos.zip")
