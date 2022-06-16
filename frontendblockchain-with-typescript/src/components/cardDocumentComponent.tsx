@@ -21,6 +21,20 @@ export const CardDocumentComponent = ({ document }: any) => {
         if (tipo == "image/png") {
             extensionText = "png";
         }
+        if(tipo=="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"){
+            extensionText="xlsx";        
+        }
+        if(tipo=="application/vnd.openxmlformats-officedocument.wordprocessingml.document"){
+            extensionText="docx"; 
+        }
+        if(tipo=="application/vnd.openxmlformats-officedocument.presentationml.presentation"){
+            extensionText="pptx"; 
+        }
+        if(tipo=="text/plain"){
+            extensionText="txt"; 
+
+        }
+
 
         return extensionText;
     }

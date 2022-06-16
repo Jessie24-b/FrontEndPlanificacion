@@ -15,6 +15,16 @@ export function registerMempool (mempool:any)  {
 
 
 }
+export function getCheckFile (file:any)  {   
+
+  
+  const response=  axios.post(BASEURL+MEMPOOL_CONTROLLER,file).then(response => response.data)  
+  
+
+return response
+
+
+}
 
 export  function getMempoolList(){
   const response=  axios.get(BASEURL+MEMPOOL_CONTROLLER).then(response => response.data) 
