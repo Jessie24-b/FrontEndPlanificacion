@@ -7,12 +7,8 @@ var fileDownload = require('js-file-download');
 
 export const CardDocumentComponent = ({ document }: any) => {
 
-    console.log(document.funcion);
-    const deleteMem = (id: string) => {
-
-        deleteMempool(id);
-
-    }
+    
+  
 
     const extensionBlob = (tipo: any) => {
         let extensionText = "";
@@ -69,7 +65,7 @@ export const CardDocumentComponent = ({ document }: any) => {
                 <h6 className="card-subtitle mb-2 text-muted">tamaño:{document.tamanio}</h6>
                 <div className="row">
                     <div className="col-sm-6">
-                        <button className=" btn-danger" onClick={() => deleteMem(document.id)}> <MdDeleteForever size={30} className="icons" /></button>
+                        <button className=" btn-danger" onClick={() => document.deleteCard(document.id)}> <MdDeleteForever size={30} className="icons" /></button>
                     </div>
                     <div className="col-sm-6">
                         <button className=" btn-primary"> <GrDocumentDownload size={30} onClick={() => downloadMem(document.archivo, document.tipo)} className="icons" /></button>
@@ -79,7 +75,7 @@ export const CardDocumentComponent = ({ document }: any) => {
                             Seleccionar
                         </label>
                 </div>
-                <label><input type="checkbox" id="cbox1" value="tercer_checkbox" onChange={document.funcion}/> Este es mi primer checkbox</label>
+               
            
             </div>
         </div>
