@@ -9,6 +9,8 @@ import { alertMessage } from "../alerts/alerts";
 import { ERROR_MESSAGE_INPUT_FILE, ICON_ERROR } from "../alerts/VariablesAlerts";
 import '../styles/mempool.css';
 import { faL } from "@fortawesome/free-solid-svg-icons";
+import {ACTION_SUCCESS_DELETE,ICON_SUCCESS,SUCCESS_MESSAGE_REGISTER} from "../alerts/VariablesAlerts";
+
 var saveAs = require('file-saver');
 var Zip = require('jszip')();
 
@@ -27,10 +29,12 @@ const Mempool = () => {
     useEffect(() => {
 
         getMempoolList().then(response => {
+            console.log("trajo la lista de datos");
             setAllArchivos(response);
+            console.log(reloadData);
         })
+       console.log("actualizo");
        
-        return ()=>setReloadData(false);
     },[reloadData])
 
     //metodo para obtener los id de cada checkbox seleccionado
@@ -73,8 +77,10 @@ const Mempool = () => {
         
         vect.forEach(function (idMempool) {
             deleteMempool(idMempool);
+           
         })
-        setReloadData(true);
+        alertMessage(ACTION_SUCCESS_DELETE,ICON_SUCCESS);
+        setReloadData(!reloadData);     
         setDisabledDescargar(true);
         setDisabledEliminar(true);
 
@@ -82,7 +88,8 @@ const Mempool = () => {
 
     const deleteCard = (id: string) => {
         deleteMempool(id);
-        setReloadData(true);
+        alertMessage(ACTION_SUCCESS_DELETE,ICON_SUCCESS);
+        setReloadData(!reloadData);
     }
 
     //metodo para descargar multiples archivos seleccionados
@@ -193,17 +200,24 @@ const Mempool = () => {
                         tamanio: archivo.size.toLocaleString(),
                     }
 
-
+                    console.log("registro archivo");
                     registerMempool(document);
-                    setDisabled(true);
-                    setReloadData(true);
+                    
 
                 }
 
             })
+            alertMessage(SUCCESS_MESSAGE_REGISTER,ICON_SUCCESS);
+            setDisabled(true);
+            setTimeout(actualizarEstado, 1000)
+           
         }
+        
     }
 
+    function actualizarEstado(){
+        setReloadData(!reloadData);
+      }
 
     return (
         <div>
