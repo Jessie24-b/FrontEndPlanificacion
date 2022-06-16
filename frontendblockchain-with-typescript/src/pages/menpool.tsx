@@ -59,19 +59,31 @@ const Mempool = () => {
             setDisabledDescargar(false);
             setDisabledEliminar(false);
 
+        }else{
+            setDisabledDescargar(true);
+            setDisabledEliminar(true);
+
         }
 
+        return arrayIds;
 
-        console.log("ARRAY FINAL "+arrayIds);
+    }
+
+    const deleteListMempool=( vect: Array<string>)=>{
+        
+        vect.forEach(function (idMempool) {
+            deleteMempool(idMempool);
+        })
+        setReloadData(true);
+        setDisabledDescargar(true);
+        setDisabledEliminar(true);
 
     }
 
     const deleteCard = (id: string) => {
         deleteMempool(id);
         setReloadData(true);
-    
-    
-        }
+    }
 
     //metodo para descargar multiples archivos seleccionados
     const donwloadAll= () =>{
@@ -94,18 +106,19 @@ const Mempool = () => {
     const subirArchivos = function (e: React.ChangeEvent<HTMLInputElement>) {
 
         const fileList = e.target.files;
-        console.log(fileList);
+
         if (!fileList) return;
         setArchivos(fileList);
 
         var cont = 0;
+       
 
         Array.from(fileList).forEach(archivo => {
 
             var ext = archivo.name.split('.').pop();
 
             if ((ext != "pdf") && (ext != "png") && ext != "txt" && ext != "docx" && ext != "xlsx" && ext != "pptx"
-                && ext != " jpg") {
+                && ext != "jpg") {
 
                 cont++;
 
@@ -123,14 +136,12 @@ const Mempool = () => {
 
     };
 
-    const validarExtensionArchivos = (ext: string) => {
-
-
-    }
+    
 
     const validationTypeArchive = (type: string) => {
         let numberSlice = 0;
-        if (type == "image/jpeg") {
+    
+        if (type == "image/jpg") {
             numberSlice = 23;
         }
         if (type == "application/pdf") {
@@ -139,18 +150,18 @@ const Mempool = () => {
         if (type == "image/png") {
             numberSlice = 22;
         }
-        if (type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
-            numberSlice = 79;
+        if (type =="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+            numberSlice = 78;
         }
-        if (type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+        if (type =="application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
 
             numberSlice = 84;
 
         }
-        if (type = "application/vnd.openxmlformats-officedocument.presentationml.presentation") {
+        if (type == "application/vnd.openxmlformats-officedocument.presentationml.presentation") {
             numberSlice = 86;
         }
-        if (type = "text/plain") {
+        if (type == "text/plain") {
             numberSlice = 23;
 
         }
@@ -170,16 +181,9 @@ const Mempool = () => {
                 reader.onload = function () {
 
                     const base64 = reader.result;
-                    console.log(base64);
-
                     const numberS = validationTypeArchive(archivo.type);
-                    console.log(numberS);
                     let arc = base64?.toString().slice(numberS);
-                    console.log(arc);
-
-
-
-
+                    
                     var document = {
                         nombre: archivo.name,
                         archivo: arc,
@@ -216,8 +220,8 @@ const Mempool = () => {
                     <div className="col-sm-8">
 
                         <button id="btnMempool" className="btn btn-primary p-2 " onClick={insertArchivos} disabled={isDisabled} >Subir Archivos</button>
-                        <button id="btnMempool" className="btn btn-danger p-2 " disabled={isDisabledEliminar}>Eliminar</button>
                         <button id="btnMempool" className="btn btn-info p-2 " onClick={donwloadAll} disabled={isDisabledDescargar}>Descargar</button>
+                        <button id="btnMempool" className="btn btn-danger p-2 " onClick={()=>deleteListMempool(arrayIds)} disabled={isDisabledEliminar}>Eliminar</button>
                     </div>
                     {/* <label><input type="checkbox" id="cbox1" value="first_checkbox" onChange={pruebaFuncion}/> Este es mi primer checkbox</label> */}
 

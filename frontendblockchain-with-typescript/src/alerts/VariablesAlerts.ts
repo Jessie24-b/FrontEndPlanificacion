@@ -1,6 +1,6 @@
 export const SUCCESS_MESSAGE_REGISTER: string="Insertado correctamente";
 export const ERROR_MESSAGE_REGISTER: string="Error no se pudo insertar ";
-export const ERROR_MESSAGE_INPUT_FILE: string="Error tipo de archivos permitidos -> pdf, png, jpg, txt, docx, xlsx, pptx";
+export const ERROR_MESSAGE_INPUT_FILE: string="Error tipo de archivo no permitido";
 export const ERROR_MESSAGE_LOGIN: string="Usuario inexistente";
 export const ERROR_MESSAGE_LOGIN_TEXT: string="Usuario no registrado o datos incorrectos";
 export const QUESTION_MESSAGE_DELETE: string="¿Esta seguro que desea eliminar?";
