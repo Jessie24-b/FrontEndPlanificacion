@@ -7,6 +7,7 @@ var fileDownload = require('js-file-download');
 
 export const CardDocumentComponent = ({ document }: any) => {
 
+    console.log(document.funcion);
     const deleteMem = (id: string) => {
 
         deleteMempool(id);
@@ -78,6 +79,8 @@ export const CardDocumentComponent = ({ document }: any) => {
                             Seleccionar
                         </label>
                 </div>
+                <label><input type="checkbox" id="cbox1" value="tercer_checkbox" onChange={document.funcion}/> Este es mi primer checkbox</label>
+           
             </div>
         </div>
 

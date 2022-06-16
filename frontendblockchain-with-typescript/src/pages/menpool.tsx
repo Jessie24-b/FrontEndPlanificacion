@@ -1,7 +1,8 @@
-import axios from "axios";
-import {useEffect, useState } from "react"
+
+import { useEffect, useState } from "react"
 import MempoolS from "../types/mempool.type";
 import { registerMempool, getMempoolList } from "../service/mempoolService"
+import {} from "../service/mempoolService"
 import { CardsDocumentsComponets } from "../components/cardsDocumentsComponets";
 import Navbar from '../components/Navbar';
 import { alertMessage } from "../alerts/alerts";
@@ -19,24 +20,21 @@ const Mempool = () => {
     const [archivos, setArchivos] = useState<FileList | null>()
 
     const [listArchivos, setAllArchivos] = useState<Array<MempoolS>>([])
-
+    const [reloadData, setReloadData] = useState(false);
+   
 
     useEffect(() => {
+       
         getMempoolList().then(response => {
             setAllArchivos(response);
         })
+        return ()=>setReloadData(false);
+    },[reloadData])
 
-    }, [])
-
-    useEffect(() => {
-        getMempoolList().then(response => {     
-            setAllArchivos(response);
-        })  
-      });
    
-      interface inputCheck{
-        
-      }
+   const pruebaFuncion = (e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(e.target.value);
+   }
 
 
     //Obtiene los archivos y se ingresa al useState trato que inserten varios
@@ -139,8 +137,8 @@ const Mempool = () => {
                     }
 
 
-                   // registerMempool(document);
-
+                    registerMempool(document);
+                    setReloadData(true);
 
                 }
 
@@ -172,11 +170,14 @@ const Mempool = () => {
                     <div className="col-sm-4">
                         <button className="btn btn-primary p-3" onClick={insertArchivos} disabled={isDisabled} >Subir Archivos</button>
                     </div>
+                    <label><input type="checkbox" id="cbox1" value="first_checkbox" onChange={pruebaFuncion}/> Este es mi primer checkbox</label>
+                   
                 </div>
                 <div className="row">
-                
-                    <CardsDocumentsComponets listArchivos={listArchivos}  />
-                 
+                    <CardsDocumentsComponets listArchivos={listArchivos} prueba={pruebaFuncion}/> 
+                   
+
+                  
                 </div>
 
 

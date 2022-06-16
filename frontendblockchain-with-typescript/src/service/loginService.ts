@@ -1,5 +1,5 @@
 import axios from "axios";
-import { alertMessage, alertQuestion } from "../alerts/alerts";
+import { alertMessage } from "../alerts/alerts";
 import {ERROR_MESSAGE_LOGIN,ICON_ERROR} from "../alerts/VariablesAlerts";
 
 

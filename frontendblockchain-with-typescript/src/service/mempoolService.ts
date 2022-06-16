@@ -1,8 +1,8 @@
 
 import axios from "axios";
 import {BASEURL,MEMPOOL_CONTROLLER} from "../routes/httpRoutes"
-import { alertMessage, alertQuestion } from "../alerts/alerts";
-import {ACTION_SUCCESS_DELETE,ICON_SUCCESS,QUESTION_MESSAGE_DELETE,CONFIRM_BUTTON_TEXT_DELETE,SUCCESS_MESSAGE_REGISTER} from "../alerts/VariablesAlerts";
+import { alertMessage } from "../alerts/alerts";
+import {ACTION_SUCCESS_DELETE,ICON_SUCCESS,SUCCESS_MESSAGE_REGISTER} from "../alerts/VariablesAlerts";
 
 
 export function registerMempool (mempool:any)  {   
