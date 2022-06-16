@@ -1,11 +1,11 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import Footer from '../components/footer';
+
 import Navbar from '../components/Navbar';
 import  '../styles/config.css';
 import {Configuracion} from "../types"
 import ListConfiguration from "../components/listConfigComponent";
-import { alertMessage, alertQuestion } from "../alerts/alerts";
+import { alertMessage } from "../alerts/alerts";
 import {SUCCESS_MESSAGE_REGISTER,ICON_SUCCESS} from "../alerts/VariablesAlerts";
 
 interface ConfiguracionState {

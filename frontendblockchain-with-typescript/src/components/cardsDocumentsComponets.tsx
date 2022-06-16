@@ -1,4 +1,4 @@
-import React from 'react'
+
 import '../styles/cards.css'
 
 import { CardDocumentComponent } from './cardDocumentComponent';
@@ -11,14 +11,17 @@ interface props{
     tipoArchivo: string;
     fecha: string;
     tamanio: string;
-    }>
+    }>,
+    prueba: any;
     
 }
 
-export const CardsDocumentsComponets = ({listArchivos}: props,{handleInput}:any) => {
+export const CardsDocumentsComponets = ({listArchivos, prueba }: props) => {
+   
   return (
 
     <div >
+                
          <ul className='cards'>
             {
                 listArchivos.map( arch =>{
@@ -30,9 +33,12 @@ export const CardsDocumentsComponets = ({listArchivos}: props,{handleInput}:any)
                                     propietario: arch.propietario,
                                     tipo: arch.tipoArchivo,
                                     fecha: arch.fecha,
-                                    tamanio: arch.tamanio
+                                    tamanio: arch.tamanio,
+                                    funcion: prueba
                                 }}
-                                
+                               
+
+                                    
                                     />
                             </li>
                         )
