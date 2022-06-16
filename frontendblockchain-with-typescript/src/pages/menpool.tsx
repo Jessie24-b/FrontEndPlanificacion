@@ -132,7 +132,7 @@ const Mempool = () => {
             setDisabled(false);
             cont = 0;
         }
-
+      
 
     };
 
@@ -195,6 +195,7 @@ const Mempool = () => {
 
 
                     registerMempool(document);
+                    setDisabled(true);
                     setReloadData(true);
 
                 }
