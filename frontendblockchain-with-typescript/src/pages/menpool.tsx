@@ -9,7 +9,8 @@ import { alertMessage } from "../alerts/alerts";
 import { ERROR_MESSAGE_INPUT_FILE, ICON_ERROR } from "../alerts/VariablesAlerts";
 import '../styles/mempool.css';
 import { faL } from "@fortawesome/free-solid-svg-icons";
-
+var saveAs = require('file-saver');
+var Zip = require('jszip')();
 
 
 const Mempool = () => {
@@ -37,7 +38,7 @@ const Mempool = () => {
         return ()=>setReloadData(false);
     },[reloadData])
 
-
+    //metodo para obtener los id de cada checkbox seleccionado
     const deleteMultiple = (e: React.ChangeEvent<HTMLInputElement>) => {
 
         var repetido = new Boolean(false);
@@ -77,6 +78,18 @@ const Mempool = () => {
     
         }
 
+    //metodo para descargar multiples archivos seleccionados
+    const donwloadAll= () =>{
+       listArchivos.forEach(list =>{
+        Zip.file(list.nombre, list.archivo, {base64: true});
+
+       })
+       Zip.generateAsync({type: 'blob'}).then(function(content: any){
+            saveAs(content, "archivos.zip")
+       });
+       Zip = require('jszip')();
+       
+    }
 
     //Obtiene los archivos y se ingresa al useState trato que inserten varios
 
@@ -170,6 +183,7 @@ const Mempool = () => {
 
 
                     var document = {
+                        nombre: archivo.name,
                         archivo: arc,
                         propietario: localStorage.getItem("user"),
                         tipoArchivo: archivo.type,
@@ -205,7 +219,7 @@ const Mempool = () => {
 
                         <button id="btnMempool" className="btn btn-primary p-2 " onClick={insertArchivos} disabled={isDisabled} >Subir Archivos</button>
                         <button id="btnMempool" className="btn btn-danger p-2 " disabled={isDisabledEliminar}>Eliminar</button>
-                        <button id="btnMempool" className="btn btn-info p-2 " disabled={isDisabledDescargar}>Descargar</button>
+                        <button id="btnMempool" className="btn btn-info p-2 " onClick={donwloadAll} disabled={isDisabledDescargar}>Descargar</button>
                     </div>
                     {/* <label><input type="checkbox" id="cbox1" value="first_checkbox" onChange={pruebaFuncion}/> Este es mi primer checkbox</label> */}
 
