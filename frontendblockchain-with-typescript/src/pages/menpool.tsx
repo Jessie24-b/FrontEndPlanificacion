@@ -1,8 +1,8 @@
 
 import { useEffect, useState } from "react"
 import MempoolS from "../types/mempool.type";
-import { registerMempool, getMempoolList } from "../service/mempoolService"
-import { } from "../service/mempoolService"
+import { registerMempool, getMempoolList, deleteMempool} from "../service/mempoolService"
+import {} from "../service/mempoolService"
 import { CardsDocumentsComponets } from "../components/cardsDocumentsComponets";
 import Navbar from '../components/Navbar';
 import { alertMessage } from "../alerts/alerts";
@@ -33,8 +33,9 @@ const Mempool = () => {
         getMempoolList().then(response => {
             setAllArchivos(response);
         })
-        return () => setReloadData(false);
-    }, [reloadData])
+       
+        return ()=>setReloadData(false);
+    },[reloadData])
 
 
     const deleteMultiple = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,6 +69,13 @@ const Mempool = () => {
         console.log("ARRAY FINAL "+arrayIds);
 
     }
+
+    const deleteCard = (id: string) => {
+        deleteMempool(id);
+        setReloadData(true);
+    
+    
+        }
 
 
     //Obtiene los archivos y se ingresa al useState trato que inserten varios
@@ -203,7 +211,7 @@ const Mempool = () => {
 
                 </div>
                 <div className="row">
-                    <CardsDocumentsComponets listArchivos={listArchivos} deleteM={deleteMultiple} />
+                    <CardsDocumentsComponets listArchivos={listArchivos} deleteM={deleteMultiple} deleteCard={deleteCard} />
 
 
 
