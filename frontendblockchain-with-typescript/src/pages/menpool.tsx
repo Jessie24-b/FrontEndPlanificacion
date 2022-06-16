@@ -70,6 +70,13 @@ const Mempool = () => {
 
     }
 
+    const deleteCard = (id: string) => {
+        deleteMempool(id);
+        setReloadData(true);
+    
+    
+        }
+
 
     //Obtiene los archivos y se ingresa al useState trato que inserten varios
 
@@ -204,7 +211,7 @@ const Mempool = () => {
 
                 </div>
                 <div className="row">
-                    <CardsDocumentsComponets listArchivos={listArchivos} deleteM={deleteMultiple} />
+                    <CardsDocumentsComponets listArchivos={listArchivos} deleteM={deleteMultiple} deleteCard={deleteCard} />
 
 
 

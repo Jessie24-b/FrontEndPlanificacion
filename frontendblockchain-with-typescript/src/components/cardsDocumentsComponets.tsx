@@ -17,7 +17,7 @@ interface props{
     
 }
 
-export const CardsDocumentsComponets = ({listArchivos, deleteM }: props) => {
+export const CardsDocumentsComponets = ({listArchivos, deleteM, deleteCard }: props) => {
    
   return (
 
@@ -35,8 +35,8 @@ export const CardsDocumentsComponets = ({listArchivos, deleteM }: props) => {
                                     tipo: arch.tipoArchivo,
                                     fecha: arch.fecha,
                                     tamanio: arch.tamanio,
-                                    deleteMultiple: deleteM
-                                    deleteCard
+                                    deleteMultiple: deleteM,
+                                    deleteCard: deleteCard
                                 }}
                                
 
