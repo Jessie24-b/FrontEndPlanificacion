@@ -7,7 +7,7 @@ var fileDownload = require('js-file-download');
 
 export const CardDocumentComponent = ({ document }: any) => {
 
-    console.log(document.funcion);
+    
     const deleteMem = (id: string) => {
 
         deleteMempool(id);
@@ -51,14 +51,11 @@ export const CardDocumentComponent = ({ document }: any) => {
 
     }
 
-    const deleteListMempool=(id:string)=>{
-        console.log(id);
-
-    }
 
     return (
 
         <div className="card align-items-center" style={{ width: '17rem' }}>
+             <label><input className="form-check-input" type="checkbox" id="cbox1" value={document.id} onChange={document.deleteMultiple}/> Seleccionar</label>
             <img src={"https://thumbs.dreamstime.com/b/carpeta-de-archivos-amarilla-con-los-documentos-34692828.jpg"}
                 className="card-img-top" alt="..." height={'100px'} style={{ width: '100px' }} />
             <div className="card-body p-0">
@@ -74,12 +71,9 @@ export const CardDocumentComponent = ({ document }: any) => {
                     <div className="col-sm-6">
                         <button className=" btn-primary"> <GrDocumentDownload size={30} onClick={() => downloadMem(document.archivo, document.tipo)} className="icons" /></button>
                     </div>
-                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" onClick={()=>deleteListMempool(document.id)}/>
-                        <label className="form-check-label" htmlFor="flexCheckDefault">
-                            Seleccionar
-                        </label>
+                   
                 </div>
-                <label><input type="checkbox" id="cbox1" value="tercer_checkbox" onChange={document.funcion}/> Este es mi primer checkbox</label>
+               
            
             </div>
         </div>
