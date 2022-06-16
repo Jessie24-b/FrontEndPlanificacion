@@ -12,12 +12,12 @@ interface props{
     fecha: string;
     tamanio: string;
     }>,
-    prueba: any,
     deleteCard: any
+    deleteM: any;
     
 }
 
-export const CardsDocumentsComponets = ({listArchivos, prueba, deleteCard }: props) => {
+export const CardsDocumentsComponets = ({listArchivos, deleteM }: props) => {
    
   return (
 
@@ -35,7 +35,7 @@ export const CardsDocumentsComponets = ({listArchivos, prueba, deleteCard }: pro
                                     tipo: arch.tipoArchivo,
                                     fecha: arch.fecha,
                                     tamanio: arch.tamanio,
-                                    funcion: prueba,
+                                    deleteMultiple: deleteM
                                     deleteCard
                                 }}
                                

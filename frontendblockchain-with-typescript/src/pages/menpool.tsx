@@ -6,25 +6,30 @@ import {} from "../service/mempoolService"
 import { CardsDocumentsComponets } from "../components/cardsDocumentsComponets";
 import Navbar from '../components/Navbar';
 import { alertMessage } from "../alerts/alerts";
-import {ERROR_MESSAGE_INPUT_FILE, ICON_ERROR} from "../alerts/VariablesAlerts";
+import { ERROR_MESSAGE_INPUT_FILE, ICON_ERROR } from "../alerts/VariablesAlerts";
+import '../styles/mempool.css';
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 
 
 const Mempool = () => {
 
-// class Mempool extends React.Component{
-   
-    
+    // class Mempool extends React.Component{
+
+
     const [isDisabled, setDisabled] = useState(true);
-    
+    const [isDisabledEliminar, setDisabledEliminar] = useState(true);
+    const [isDisabledDescargar, setDisabledDescargar] = useState(true);
+
     const [archivos, setArchivos] = useState<FileList | null>()
 
     const [listArchivos, setAllArchivos] = useState<Array<MempoolS>>([])
     const [reloadData, setReloadData] = useState(false);
-   
+    const [arrayIds,setArrayIds]=useState<Array<string>>([]);
+
 
     useEffect(() => {
-       
+
         getMempoolList().then(response => {
             setAllArchivos(response);
         })
@@ -32,17 +37,39 @@ const Mempool = () => {
         return ()=>setReloadData(false);
     },[reloadData])
 
-   
-   const pruebaFuncion = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.value);
-   }
 
-   const deleteCard = (id: string) => {
-    deleteMempool(id);
-    setReloadData(true);
+    const deleteMultiple = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        var repetido = new Boolean(false);
+        const id = e.target.value;
 
 
-} 
+        if (arrayIds.length > 0) { //verificar que el array tiene mas de un elemento
+
+
+            arrayIds.forEach(function (idMempool, indice, array) {
+                if (id == idMempool) {
+                    arrayIds.splice(indice, 1)
+                    repetido=true;
+                }
+            })
+
+        } 
+        if(repetido==false){
+            arrayIds.push(id); //agregar elementos al array
+        }
+
+        if(arrayIds.length>=2){
+            setDisabledDescargar(false);
+            setDisabledEliminar(false);
+
+        }
+
+
+        console.log("ARRAY FINAL "+arrayIds);
+
+    }
+
 
     //Obtiene los archivos y se ingresa al useState trato que inserten varios
 
@@ -53,34 +80,34 @@ const Mempool = () => {
         if (!fileList) return;
         setArchivos(fileList);
 
-        var cont=0;
-        
+        var cont = 0;
+
         Array.from(fileList).forEach(archivo => {
-            
-           var ext=archivo.name.split('.').pop();
-           
-            if((ext!="pdf") && (ext!="png") && ext!="txt" && ext!="docx" && ext!="xlsx" && ext!="pptx" 
-            && ext!=" jpg"){
+
+            var ext = archivo.name.split('.').pop();
+
+            if ((ext != "pdf") && (ext != "png") && ext != "txt" && ext != "docx" && ext != "xlsx" && ext != "pptx"
+                && ext != " jpg") {
 
                 cont++;
-               
+
 
             }
         })
 
-        if(cont>0){
-            alertMessage(ERROR_MESSAGE_INPUT_FILE,ICON_ERROR);
-        }else{
+        if (cont > 0) {
+            alertMessage(ERROR_MESSAGE_INPUT_FILE, ICON_ERROR);
+        } else {
             setDisabled(false);
-            cont=0;
+            cont = 0;
         }
-       
+
 
     };
 
-    const validarExtensionArchivos=(ext:string)=> {
+    const validarExtensionArchivos = (ext: string) => {
 
-       
+
     }
 
     const validationTypeArchive = (type: string) => {
@@ -91,22 +118,22 @@ const Mempool = () => {
         if (type == "application/pdf") {
             numberSlice = 28;
         }
-        if(type=="image/png"){
-            numberSlice=22;
+        if (type == "image/png") {
+            numberSlice = 22;
         }
-        if(type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"){
-            numberSlice=79;
+        if (type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+            numberSlice = 79;
         }
-        if(type="application/vnd.openxmlformats-officedocument.wordprocessingml.document"){
+        if (type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
 
-            numberSlice=84;
+            numberSlice = 84;
 
         }
-        if(type="application/vnd.openxmlformats-officedocument.presentationml.presentation"){
-            numberSlice=86;
+        if (type = "application/vnd.openxmlformats-officedocument.presentationml.presentation") {
+            numberSlice = 86;
         }
-        if(type="text/plain"){
-            numberSlice=23;
+        if (type = "text/plain") {
+            numberSlice = 23;
 
         }
 
@@ -126,14 +153,14 @@ const Mempool = () => {
 
                     const base64 = reader.result;
                     console.log(base64);
-                  
-                    const numberS=validationTypeArchive(archivo.type);
+
+                    const numberS = validationTypeArchive(archivo.type);
                     console.log(numberS);
                     let arc = base64?.toString().slice(numberS);
                     console.log(arc);
 
-                    
-                    
+
+
 
                     var document = {
                         archivo: arc,
@@ -153,38 +180,34 @@ const Mempool = () => {
         }
     }
 
-     const handleInput=(e:any)=>{
-        console.log(e);
-
-    }
-
-
-
 
     return (
         <div>
-             <Navbar />'
-       
+            <Navbar />'
+
             <div className="container">
                 <div className="row">
                     <h1 className="font-weight-bold text-uppercase text-center bg-primary text-white">Administración de Archivos </h1>
                     <hr style={{ height: '4px' }} />
                 </div>
                 <div className="row">
-                    <div className="col-sm-8">
-                        <input id="file" className="input-group-text p-3 border border-primary" style={{ width: '100%' }} type="file" name="files" multiple onChange={subirArchivos} accept="image/jpeg,image/jpg,image/png,.pdf,.txt,.docx,.xlsx,.pptx" />
-                    </div>
                     <div className="col-sm-4">
-                        <button className="btn btn-primary p-3" onClick={insertArchivos} disabled={isDisabled} >Subir Archivos</button>
+                        <input id="file" className="input-group-text p-2 border border-primary" style={{ width: '100%' }} type="file" name="files" multiple onChange={subirArchivos} accept="image/jpeg,image/jpg,image/png,.pdf,.txt,.docx,.xlsx,.pptx" />
                     </div>
-                    <label><input type="checkbox" id="cbox1" value="first_checkbox" onChange={pruebaFuncion}/> Este es mi primer checkbox</label>
-                   
+                    <div className="col-sm-8">
+
+                        <button id="btnMempool" className="btn btn-primary p-2 " onClick={insertArchivos} disabled={isDisabled} >Subir Archivos</button>
+                        <button id="btnMempool" className="btn btn-danger p-2 " disabled={isDisabledEliminar}>Eliminar</button>
+                        <button id="btnMempool" className="btn btn-info p-2 " disabled={isDisabledDescargar}>Descargar</button>
+                    </div>
+                    {/* <label><input type="checkbox" id="cbox1" value="first_checkbox" onChange={pruebaFuncion}/> Este es mi primer checkbox</label> */}
+
                 </div>
                 <div className="row">
-                    <CardsDocumentsComponets listArchivos={listArchivos} prueba={pruebaFuncion} deleteCard={deleteCard}/> 
-                   
+                    <CardsDocumentsComponets listArchivos={listArchivos} deleteM={deleteMultiple} />
 
-                  
+
+
                 </div>
 
 
