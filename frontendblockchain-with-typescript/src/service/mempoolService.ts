@@ -1,8 +1,8 @@
 
 import axios from "axios";
 import {BASEURL,MEMPOOL_CONTROLLER} from "../routes/httpRoutes"
-import { alertMessage, alertQuestion } from "../alerts/alerts";
-import {ACTION_SUCCESS_DELETE,ICON_SUCCESS,QUESTION_MESSAGE_DELETE,CONFIRM_BUTTON_TEXT_DELETE,SUCCESS_MESSAGE_REGISTER} from "../alerts/VariablesAlerts";
+import { alertMessage } from "../alerts/alerts";
+import {ACTION_SUCCESS_DELETE,ICON_SUCCESS,SUCCESS_MESSAGE_REGISTER} from "../alerts/VariablesAlerts";
 
 
 export function registerMempool (mempool:any)  {   
@@ -12,6 +12,16 @@ export function registerMempool (mempool:any)  {
     alertMessage(SUCCESS_MESSAGE_REGISTER,ICON_SUCCESS);
 
  return response
+
+
+}
+export function getCheckFile (file:any)  {   
+
+  
+  const response=  axios.post(BASEURL+MEMPOOL_CONTROLLER,file).then(response => response.data)  
+  
+
+return response
 
 
 }

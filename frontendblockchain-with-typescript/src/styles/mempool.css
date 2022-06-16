@@ -1,0 +1,7 @@
+#btnMempool{
+    margin-left: 10px !important;
+    color:white;
+}
+.btn-info:hover{
+    background-color: rgb(11, 165, 203);
+}

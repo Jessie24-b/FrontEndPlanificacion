@@ -7,28 +7,39 @@ var fileDownload = require('js-file-download');
 
 export const CardDocumentComponent = ({ document }: any) => {
 
-    const deleteMem = (id: string) => {
+    
+  
 
-        deleteMempool(id);
-
-    }
-
-    const extensionBlob=(tipo:any)=>{
-        let extensionText="";
+    const extensionBlob = (tipo: any) => {
+        let extensionText = "";
         if (tipo == "image/jpeg") {
-            extensionText="jpeg";
+            extensionText = "jpeg";
         }
         if (tipo == "application/pdf") {
-            extensionText="pdf";
+            extensionText = "pdf";
         }
-        if(tipo=="image/png"){
-            extensionText="png";
+        if (tipo == "image/png") {
+            extensionText = "png";
         }
+        if(tipo=="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"){
+            extensionText="xlsx";        
+        }
+        if(tipo=="application/vnd.openxmlformats-officedocument.wordprocessingml.document"){
+            extensionText="docx"; 
+        }
+        if(tipo=="application/vnd.openxmlformats-officedocument.presentationml.presentation"){
+            extensionText="pptx"; 
+        }
+        if(tipo=="text/plain"){
+            extensionText="txt"; 
+
+        }
+
 
         return extensionText;
     }
 
-    const downloadMem = (base64: any,tipo:any) => {
+    const downloadMem = (base64: any, tipo: any) => {
 
         const byteString = window.atob(base64);
         const arrayBuffer = new ArrayBuffer(byteString.length);
@@ -42,17 +53,19 @@ export const CardDocumentComponent = ({ document }: any) => {
         const url = URL.createObjectURL(blob);
 
         //validacion para el tipo de extension del archivo
-        const extensionText= extensionBlob(tipo);
-        fileDownload(blob,'Prueba1.'+extensionText)
-    
+        const extensionText = extensionBlob(tipo);
+        fileDownload(blob, 'Prueba1.' + extensionText)
+
 
         //window.open(url, '_blank');
 
     }
 
+
     return (
 
         <div className="card align-items-center" style={{ width: '17rem' }}>
+             <label><input className="form-check-input" type="checkbox" id="cbox1" value={document.id} onChange={document.deleteMultiple}/> Seleccionar</label>
             <img src={"https://thumbs.dreamstime.com/b/carpeta-de-archivos-amarilla-con-los-documentos-34692828.jpg"}
                 className="card-img-top" alt="..." height={'100px'} style={{ width: '100px' }} />
             <div className="card-body p-0">
@@ -63,12 +76,15 @@ export const CardDocumentComponent = ({ document }: any) => {
                 <h6 className="card-subtitle mb-2 text-muted">tamaño:{document.tamanio}</h6>
                 <div className="row">
                     <div className="col-sm-6">
-                        <button className=" btn-danger" onClick={() => deleteMem(document.id)}> <MdDeleteForever size={30} className="icons" /></button>
+                        <button className=" btn-danger" onClick={() => document.deleteCard(document.id)}> <MdDeleteForever size={30} className="icons" /></button>
                     </div>
                     <div className="col-sm-6">
-                        <button className=" btn-primary"> <GrDocumentDownload size={30} onClick={() => downloadMem(document.archivo,document.tipo)} className="icons" /></button>
+                        <button className=" btn-primary"> <GrDocumentDownload size={30} onClick={() => downloadMem(document.archivo, document.tipo)} className="icons" /></button>
                     </div>
+                   
                 </div>
+               
+           
             </div>
         </div>
 

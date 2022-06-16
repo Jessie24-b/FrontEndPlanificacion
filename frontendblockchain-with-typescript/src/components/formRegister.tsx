@@ -2,8 +2,6 @@ import { useState } from "react";
 import User from "../types/user.type";
 import { Link } from "react-router-dom"
 import registerUser from "../service/usuarioService"
-import { FaBeer } from 'react-icons/fa';
-import { userInfo } from "os";
 
 
 
