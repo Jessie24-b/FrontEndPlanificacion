@@ -4,7 +4,7 @@ export function alertMessage(message: string, _icon: any) {
     return Swal.fire({
         title: message,
         icon: _icon,
-        timer: 2000,
+        timer: 4000,
         showConfirmButton: false,
         position: 'top-end',
         width: 330,

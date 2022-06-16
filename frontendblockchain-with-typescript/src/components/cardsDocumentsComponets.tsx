@@ -15,7 +15,7 @@ interface props{
     
 }
 
-export const CardsDocumentsComponets = ({listArchivos}: props) => {
+export const CardsDocumentsComponets = ({listArchivos}: props,{handleInput}:any) => {
   return (
 
     <div >
@@ -32,7 +32,7 @@ export const CardsDocumentsComponets = ({listArchivos}: props) => {
                                     fecha: arch.fecha,
                                     tamanio: arch.tamanio
                                 }}
-                                    
+                                
                                     />
                             </li>
                         )
