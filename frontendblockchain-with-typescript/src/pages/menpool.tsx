@@ -1,12 +1,13 @@
 
 import { useEffect, useState } from "react";
+import {Modal } from "react-bootstrap";
 import Navbar from '../components/Navbar';
 import MempoolS from "../types/mempool.type";
 import Block from '../types/block.type';
 import '../styles/mempool.css';
 import { alertMessage } from "../alerts/alerts";
 import { getNumberBlockofConfig } from "../service/configuracionService";
-import { registerMempool, getMempoolList, deleteMempool,minadoMempool } from "../service/mempoolService";
+import { registerMempool, getMempoolList, deleteMempool,minadoMempool,getLastBlock} from "../service/mempoolService";
 import { CardsDocumentsComponets } from "../components/cardsDocumentsComponets";
 import { ERROR_MESSAGE_INPUT_FILE, ERROR_MESSAGE_NumberBlocks, ICON_ERROR } from "../alerts/VariablesAlerts";
 import { ACTION_SUCCESS_DELETE, ICON_SUCCESS, SUCCESS_MESSAGE_REGISTER } from "../alerts/VariablesAlerts";
@@ -17,6 +18,7 @@ var Zip = require('jszip')();
 
 const Mempool = () => {
 
+   
     const [isDisabled, setDisabled] = useState(true);
     const [isDisabledEliminar, setDisabledEliminar] = useState(true);
     const [isDisabledDescargar, setDisabledDescargar] = useState(true);
@@ -24,6 +26,9 @@ const Mempool = () => {
     const [listArchivos, setAllArchivos] = useState<Array<MempoolS>>([])
     const [reloadData, setReloadData] = useState(false);
     const [arrayIds, setArrayIds] = useState<Array<string>>([]);
+    const [inputModal, setModal] = useState(false);
+    const handleShow = () => {setModal(true);}
+    const handleClose = () => {setModal(false);}
 
 
     useEffect(() => {
@@ -225,26 +230,28 @@ const Mempool = () => {
     }
 
 
-    function minado() {
-
-        getNumberBlockofConfig().then((response: any) => {
-
+        async function minado() {
+               
+        if (listArchivos.length <= 0) {
+            alertMessage(ERROR_MESSAGE_NumberBlocks, ICON_ERROR);
+        }else{
             var archOfBlock = [];
+            handleShow();
+            const response= await getNumberBlockofConfig();
+            const response2 = await getLastBlock();
+            
+        
             var limitOfBlocks=response.value;
 
-
-            if (listArchivos.length <= 0) {
-                alertMessage(ERROR_MESSAGE_NumberBlocks, ICON_ERROR);
-            }else{
-                              
-                if(listArchivos.length < limitOfBlocks){
-                    limitOfBlocks = listArchivos.length;   
-                }
+            if(listArchivos.length < limitOfBlocks){
+                limitOfBlocks = listArchivos.length;   
             }
-                
+
             for (let i = 0; i < limitOfBlocks; i++) {
-                archOfBlock.push(listArchivos[i].archivo);              
+                archOfBlock.push(listArchivos[i].archivo);
+                await deleteMempool(listArchivos[i].id);              
             } 
+
             var block: Block = {
                 idBloque: 1,
                 fechaMinado: "",
@@ -254,13 +261,20 @@ const Mempool = () => {
                 hashPrevio: "00000000000000000000000000000000000000000000000000000000000000000",
                 hash: "",
             }
+            if(response2 != ''){
+                block.idBloque = response2.idBloque+1;
+                block.hashPrevio= response2.hash;
+               
+            }                                 
+                       
+            const response3= await minadoMempool(block);    
+            console.log(response3)
+            handleClose(); 
+            setReloadData(!reloadData);
+        } 
+    } 
 
-            minadoMempool(block).then((response: any) =>{
-                console.log(response);
-            })
-
-        });
-    }
+   
 
     return (
         <div>
@@ -296,6 +310,24 @@ const Mempool = () => {
 
 
             </div>
+
+            <Modal show={inputModal} onHide={handleClose}>
+                <Modal.Body >
+                    <div className="row">
+                        <div className="col-sm-6">
+                            <img  style={{width: "250px"}} 
+                            src="https://entresabanasyalmohadas.files.wordpress.com/2017/02/33a9b-nyan.gif" />
+                        </div>
+                        <div className="col-sm-3">
+                            <p className="textAwait">...Minando</p>
+                        </div>
+                    </div>
+               
+               
+                
+                </Modal.Body>
+               
+            </Modal>
 
         </div>
     );

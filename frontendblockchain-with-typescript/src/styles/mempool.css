@@ -91,3 +91,15 @@
       opacity: 0;
     }
   }
+
+  .modal-content{
+    background-color: transparent;
+    border: none;
+    margin-top: 60%;
+  }
+
+  .textAwait{
+    margin-top: 50%;
+    font-size: x-large;
+    color: white;
+  }

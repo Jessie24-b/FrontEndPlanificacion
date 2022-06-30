@@ -14,10 +14,21 @@ export async function registerMempool (mempool:any)  {
 
 }
 
+export  function getLastBlock ()  {   
+
+  
+  const response =  axios.get(BASEURL+MEMPOOL_CONTROLLER+"/lastBlock/").then(response => response.data)  
+ 
+return response
+
+
+}
+
 export async function minadoMempool (block:any)  {   
 
   
-  const response= await axios.post(BASEURL+MEMPOOL_CONTROLLER+"/minado/",block).then(response => response.data)  
+  const response= await axios.post(BASEURL+MEMPOOL_CONTROLLER+"/minado/",block)
+  .then(response => response.data)  
  
 return response
 
