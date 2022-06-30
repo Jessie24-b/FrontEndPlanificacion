@@ -6,6 +6,7 @@ export const ERROR_MESSAGE_LOGIN_TEXT: string="Usuario no registrado o datos inc
 export const QUESTION_MESSAGE_DELETE: string="¿Esta seguro que desea eliminar?";
 export const QUESTION_MESSAGE_UPDATE: string="¿Esta seguro que desea actualizar?";
 export const ERROR_MESSAGE_NumberBlocks: string="No hay documentos para minar";
+export const ERROR_MESSAGE_CONFIGURATION_FORM: string="Error dato existente";
 
 export const ICON_SUCCESS: string="success";
 export const ICON_ERROR: string="error";
