@@ -5,3 +5,101 @@
 .btn-info:hover{
     background-color: rgb(11, 165, 203);
 }
+
+
+
+/* Estilo de botones del mempool */
+
+
+.wrap {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .buttonMinar {
+    min-width: 100px;
+    min-height: 30px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+    font-weight: 700;
+    color: #313133;
+    border-radius: 10%;
+    background: rgb(224, 224, 56);
+    border: none;
+    box-shadow: 12px 12px 24px rgba(79,209,197,.64);
+    transition: all 0.3s ease-in-out 0s;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    padding: 8px;
+    float: right;
+    }
+  
+    .buttonMinar::before {
+  content: '';
+   
+    min-width: calc(100px + 12px);
+    min-height: calc(60px + 12px);
+    border: 6px solid #00FFCB;
+    box-shadow: 0 0 60px rgba(0,255,203,.64);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: all .3s ease-in-out 0s;
+  }
+  
+  .buttonMinar:hover, .buttonMinar:focus {
+    color: #313133;
+    transform: translateY(-6px);
+  }
+  
+  .buttonMinar:hover::before, .buttonMinar:focus::before {
+    opacity: 1;
+  }
+  
+  .buttonMinar::after {
+    content: '';
+    width: 30px; height: 30px; 
+    border: 6px solid #00FFCB;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: ring 1.5s infinite;
+  }
+  
+   .buttonMinar:hover::after {
+    animation: none;
+    display: none;
+  } 
+  
+  @keyframes ring {
+    0% {
+      width: 30px;
+      height: 30px;
+      opacity: 1;
+    }
+    100% {
+      width: 150px;
+      height: 150px;
+      opacity: 0;
+    }
+  }
+
+  .modal-content{
+    background-color: transparent;
+    border: none;
+    margin-top: 60%;
+  }
+
+  .textAwait{
+    margin-top: 50%;
+    font-size: x-large;
+    color: white;
+  }
