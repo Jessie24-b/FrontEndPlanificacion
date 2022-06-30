@@ -12,8 +12,8 @@ export const CardDocumentComponent = ({ document }: any) => {
 
     const extensionBlob = (tipo: any) => {
         let extensionText = "";
-        if (tipo == "image/jpeg") {
-            extensionText = "jpeg";
+        if (tipo == "image/jpg") {
+            extensionText = "jpg";
         }
         if (tipo == "application/pdf") {
             extensionText = "pdf";

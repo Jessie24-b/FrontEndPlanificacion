@@ -14,6 +14,16 @@ export async function registerMempool (mempool:any)  {
 
 }
 
+export async function minadoMempool (block:any)  {   
+
+  
+  const response= await axios.post(BASEURL+MEMPOOL_CONTROLLER+"/minado/",block).then(response => response.data)  
+ 
+return response
+
+
+}
+
 
 export function getCheckFile (file:any)  {   
 
@@ -40,3 +50,5 @@ export function deleteMempool(id:string){
   return response;
 
 }
+
+
