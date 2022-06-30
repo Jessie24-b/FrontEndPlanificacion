@@ -71,7 +71,7 @@ export const CardDocumentComponent = ({ document }: any) => {
             <div className="card-body p-0">
                 <h5 className="card-title">{document.id}</h5>
                 <h6 className="card-subtitle mb-2 text-muted">propietario:{document.propietario}</h6>
-                <h6 className="card-subtitle mb-2 text-muted">tipo:{document.tipo}</h6>
+                <h6 className="card-subtitle mb-2 text-muted">tipo:{extensionBlob(document.tipo)}</h6>
                 <h6 className="card-subtitle mb-2 text-muted">fecha:{document.fecha}</h6>
                 <h6 className="card-subtitle mb-2 text-muted">tamaño:{document.tamanio}</h6>
                 <div className="row">
