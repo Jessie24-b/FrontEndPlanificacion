@@ -10,6 +10,9 @@ import FormRegister from './components/formRegister';
 import Home from './pages/Home';
 import Configuracion from './pages/configuracion';
 import Mempool from './pages/menpool';
+import BloqueComponent from './pages/bloque';
+
+
 
 function App() {
   return (
@@ -21,6 +24,7 @@ function App() {
       <Route path='/Home' element={ <Home/>}></Route>
       <Route path='/Configuracion' element={ <Configuracion/>}></Route>
       <Route path='/Portafolio' element={ <Mempool/>}></Route>
+      <Route path='/Bloques' element={ <BloqueComponent/>}></Route>
 
     </Routes>
   </BrowserRouter>
