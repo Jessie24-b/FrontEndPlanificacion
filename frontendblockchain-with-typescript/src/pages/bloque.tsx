@@ -67,8 +67,6 @@ function BloqueComponent() {
                                     <td>{b.milisegundos}</td>
                                     <td ><button className="btn btn-danger" onClick={() => verHashPrevio(b.hashPrevio,b.hash,b.idBloque)}>Detalles</button></td>
                                     <td ><button className="btn btn-danger">Ver</button></td>
-                                    
-                                    <td>Ver</td>
                                 </tr>
                             )
                         })
