@@ -6,7 +6,7 @@ import  '../styles/config.css';
 import {Configuracion} from "../types"
 import ListConfiguration from "../components/listConfigComponent";
 import { alertMessage } from "../alerts/alerts";
-import {SUCCESS_MESSAGE_REGISTER,ICON_SUCCESS} from "../alerts/VariablesAlerts";
+import {SUCCESS_MESSAGE_REGISTER,ICON_SUCCESS,ERROR_MESSAGE_CONFIGURATION_FORM,ICON_ERROR} from "../alerts/VariablesAlerts";
 
 interface ConfiguracionState {
     inputValues: Configuracion 
@@ -19,7 +19,6 @@ interface ListConfig {
 }
 
 export default function ConfiguracionComponent() {
-
 
       const [inputValues, setInputValues] = useState<ConfiguracionState["inputValues"]>({
         key: '',
@@ -49,16 +48,26 @@ export default function ConfiguracionComponent() {
       
 
       const  handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
-        console.log(inputValues);
+      
+
+    
+
+      let obj= configs.find(r=>r.key==inputValues.key)
+      console.log(obj);
+      if(obj==undefined){
         const response=  axios.post('https://localhost:44317/api/Config/',inputValues)
         .then(response => response.data)  
-
         alertMessage(SUCCESS_MESSAGE_REGISTER,ICON_SUCCESS);
-
-        refreshForm();
 
         return response
 
+        
+      }else{
+        alertMessage(ERROR_MESSAGE_CONFIGURATION_FORM,ICON_ERROR);
+      }
+
+       
+        refreshForm();
                  
         }
 
