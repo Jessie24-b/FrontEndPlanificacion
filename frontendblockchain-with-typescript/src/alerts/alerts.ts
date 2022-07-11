@@ -30,5 +30,19 @@ export function alertQuestion(message: string,messageConfirm:string,actionMessag
 }
 
 
+export function information(hashPrevio: string,hash: string,idBloque:number) {
+    return Swal.fire({
+
+        title: 'Detalles del bloque #'+idBloque,
+        html:`<b><span>Hash previo: </span></b>${hashPrevio}<br>
+        <b><span>Hash: </span></b>  ${hash}`,
+        showConfirmButton: true,
+        width: 400,
+       
+    })
+
+}
+
+
 
 

@@ -1,0 +1,15 @@
+
+.celdaAsignado{
+
+    font-size: 6px;
+    overflow-wrap: break-word !important;
+}
+
+    .container-fluid{
+        background-color: aliceblue;
+        margin-top: 50px;
+        width: 90%;
+    }
+
+
+    
