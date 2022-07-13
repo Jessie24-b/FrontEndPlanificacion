@@ -200,10 +200,10 @@ const Mempool = () => {
                     const base64 = reader.result;
                     const numberS = validationTypeArchive(archivo.type);
                     let arc = base64?.toString().slice(numberS);
-
+                   
                     var document = {
                         nombre: archivo.name,
-                        archivo: arc,
+                        archivo: archivo.name+","+base64,
                         propietario: localStorage.getItem("user"),
                         tipoArchivo: archivo.type,
                         fecha: date.toLocaleDateString(),
@@ -248,7 +248,8 @@ const Mempool = () => {
             }
 
             for (let i = 0; i < limitOfBlocks; i++) {
-                archOfBlock.push(listArchivos[i].archivo);
+                console.log(listArchivos[i].tipoArchivo);
+                archOfBlock.push(listArchivos[i].tipoArchivo+","+listArchivos[i].archivo);
                 await deleteMempool(listArchivos[i].id);              
             } 
 

@@ -11,7 +11,7 @@ import Home from './pages/Home';
 import Configuracion from './pages/configuracion';
 import Mempool from './pages/menpool';
 import BloqueComponent from './pages/bloque';
-
+import ArchivosBloque from './pages/archivosBloque';
 
 
 function App() {
@@ -25,6 +25,7 @@ function App() {
       <Route path='/Configuracion' element={ <Configuracion/>}></Route>
       <Route path='/Portafolio' element={ <Mempool/>}></Route>
       <Route path='/Bloques' element={ <BloqueComponent/>}></Route>
+      <Route path='/ArchivosBloque/:id'  element={<ArchivosBloque/>}></Route>
 
     </Routes>
   </BrowserRouter>

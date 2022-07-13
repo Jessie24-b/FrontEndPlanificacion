@@ -2,12 +2,11 @@
 import axios from 'axios';
 import React, { useState, useEffect, useMemo } from 'react';
 import  '../styles/bloque.css';
-import DataTable from 'react-data-table-component';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { information } from "../alerts/alerts";
-
-
+import { Link} from 'react-router-dom';
 import { getBloqueList } from '../service/BloqueService';
+import { MdBookmarkAdd, MdBreakfastDining } from 'react-icons/md';
 
 
 interface ListBloque {
@@ -23,7 +22,7 @@ interface ListBloque {
 }
 
 function BloqueComponent() {
-
+   
     const [bloques, setBloques] = useState<Array<ListBloque>>([])
 
     useEffect(() => {
@@ -38,6 +37,8 @@ function BloqueComponent() {
  const verHashPrevio=(hashPrevio:string,hash:string,idBloque:number)=>{
     information(hashPrevio,hash,idBloque);
 }
+
+
 
     return (
         <div className='container-fluid '>
@@ -66,7 +67,7 @@ function BloqueComponent() {
                                     <td>{b.prueba}</td>
                                     <td>{b.milisegundos}</td>
                                     <td ><button className="btn btn-danger" onClick={() => verHashPrevio(b.hashPrevio,b.hash,b.idBloque)}>Detalles</button></td>
-                                    <td ><button className="btn btn-danger">Ver</button></td>
+                                    <td ><Link to={"/ArchivosBloque/"+ b.id } className="btn btn-danger" >Ver</Link></td>
                                 </tr>
                             )
                         })
